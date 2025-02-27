@@ -1,0 +1,266 @@
+meta {
+	name = "TYBG";
+	description = "TYBG Loot Filter by Smegma";
+}
+
+#define UNIQUE_COLOR "FFB700AB"
+#define UNIQUE_LOOTBEAM true
+
+#define VALUE_S 20000000 // 20m
+#define VALUE_A 5000000  // 5m
+#define VALUE_B 1000000  // 1m
+#define VALUE_C 300000   // 300k
+#define VALUE_D 75000    // 75k
+#define VALUE_E 10000    // 10k
+#define VALUE_F 5000	 // 5k
+#define VALUE_S_COLOR "FF890002" //Default - red	FF890002
+#define VALUE_A_COLOR "FFFF8800" //Default - orange	FFFF8800
+#define VALUE_B_COLOR "FF007F0E" //Default - green	FF007F0E
+#define VALUE_C_COLOR "FF0094FF" //Default - blue	FF0094FF
+#define VALUE_D_COLOR "FF00FFFF" //Default - teal	FF00FFFF
+#define VALUE_E_COLOR "FFFFFFFF" //Default - white	FFFFFFFF
+#define VALUE_F_COLOR "FF9E9E9E" //Default - gray	FF9E9E9E
+#define VALUE_S_LOOTBEAM true
+#define VALUE_A_LOOTBEAM true
+#define VALUE_B_LOOTBEAM true
+#define VALUE_C_LOOTBEAM true
+#define VALUE_D_LOOTBEAM false
+#define VALUE_E_LOOTBEAM false
+#define VALUE_F_LOOTBEAM false
+
+#define CLUE_COLOR_MASTER "FF9B3026"
+#define CLUE_COLOR_ELITE "FFBDA518"
+#define CLUE_COLOR_HARD "FF833798"
+#define CLUE_COLOR_MEDIUM "FF569699"
+#define CLUE_COLOR_EASY "FF1D7320"
+#define CLUE_COLOR_BEGINNER "FFA99E9D"
+#define CLUE_LIGHTBEAM_MASTER true
+#define CLUE_LIGHTBEAM_ELITE true
+#define CLUE_LIGHTBEAM_HARD true
+#define CLUE_LIGHTBEAM_MEDIUM true
+#define CLUE_LIGHTBEAM_EASY true
+#define CLUE_LIGHTBEAM_BEGINNER true
+
+#define COIN_COLOR "FFFFC935"
+#define COIN_LOOTBEAM true
+#define COIN_LOOTBEAM_VALUE VALUE_D
+
+#define POTION_VALUE_OVERRIDE 150000
+
+#define HERB_COLOR "FF86B52F"
+#define HERB_VALUE_OVERRIDE VALUE_D
+
+#define RUNE_COLOR "FF7F7676"
+#define RUNE_VALUE_OVERRIDE VALUE_E
+
+#define GENERAL_VALUE_OVERRIDE 20000
+
+#define UNIQUE_HIGHLIGHT (_name) if(name:_name) { \
+	textColor = UNIQUE_COLOR; \
+	textAccent = TEXTACCENT_OUTLINE; \
+	showLootBeam = UNIQUE_LOOTBEAM; \
+	showDespawn = true; \
+	showValue = false; \
+}
+#define VALUE_HIGHLIGHT (_value, _color, _lootBeam) if (value:>_value) { \
+	textColor = _color; \
+	textAccent = TEXTACCENT_OUTLINE; \
+	showLootBeam = _lootBeam; \
+	showDespawn = true; \
+	showValue = true; \
+}
+#define CLUE_HIGHLIGHT (_name, _lootbeam, _color) if(name:_name) { \
+	textColor = _color; \
+	textAccent = TEXTACCENT_OUTLINE; \
+	showDespawn = true; \
+	showLootbeam = _lootbeam; \
+}
+#define COIN_HIGHLIGHT_W_LOOTBEAM if(name:"Coins" && quantity:>=COIN_LOOTBEAM_VALUE) { \
+	textColor = COIN_COLOR; \
+	textAccent = TEXTACCENT_OUTLINE; \
+	showValue = false; \
+	showLootBeam = true; \
+	showDespawn = true; \
+}
+#define COIN_HIGHLIGHT if(name:"Coins") { \
+	textColor = COIN_COLOR; \
+	textAccent = TEXTACCENT_OUTLINE; \
+	showValue = false; \
+	showLootBeam = false; \
+	showDespawn = true; \
+}
+#define GENERAL_HIGHLIGHT (_name, _color, _valueOverride) if(name:_name && value:<_valueOverride) { \
+	textColor = _color; \
+	textAccent = TEXTACCENT_OUTLINE; \
+	showValue = false; \
+	showLootBeam = false; \
+	showDespawn = true; \
+}
+
+//Highlight Notable Uniques (mostly untradeables that have derived value)
+UNIQUE_HIGHLIGHT("Unsired") //Abyssal Sire
+UNIQUE_HIGHLIGHT("Bludgeon spine")
+UNIQUE_HIGHLIGHT("Bludgeon claw")
+UNIQUE_HIGHLIGHT("Bludgeon axon")
+
+UNIQUE_HIGHLIGHT("Hydra's fang") //Alchemical Hydra
+UNIQUE_HIGHLIGHT("Hydra's eye")
+UNIQUE_HIGHLIGHT("Hydra's heart")
+
+UNIQUE_HIGHLIGHT("Araxyte fang") //Araxxor
+UNIQUE_HIGHLIGHT("Noxious point")
+UNIQUE_HIGHLIGHT("Noxious blade")
+UNIQUE_HIGHLIGHT("Noxious pommel")
+
+UNIQUE_HIGHLIGHT("Eye of the duke") //Duke Sucellus
+UNIQUE_HIGHLIGHT("Magus vestige")
+UNIQUE_HIGHLIGHT("Ice quartz")
+
+UNIQUE_HIGHLIGHT("Leviathan's lure") //The Leviathan
+UNIQUE_HIGHLIGHT("Venator vestige")
+UNIQUE_HIGHLIGHT("Smoke quartz")
+
+UNIQUE_HIGHLIGHT("Slepey tablet") //Phosani's Nightmare
+
+UNIQUE_HIGHLIGHT("Executioner's axe head") //Vardorvis
+UNIQUE_HIGHLIGHT("Ultor vestige")
+UNIQUE_HIGHLIGHT("Blood quartz")
+
+UNIQUE_HIGHLIGHT("Siren's staff") //The Whisperer
+UNIQUE_HIGHLIGHT("Bellator vestige")
+UNIQUE_HIGHLIGHT("Shadow quartz")
+
+UNIQUE_HIGHLIGHT("* mutagen") //Zulrah
+
+UNIQUE_HIGHLIGHT("*champion scroll") //Champion's Challenge
+
+UNIQUE_HIGHLIGHT("*defender") //Cyclopes
+
+UNIQUE_HIGHLIGHT("Dark totem*") //Miscellaneous
+
+UNIQUE_HIGHLIGHT("Mossy Key")
+UNIQUE_HIGHLIGHT("Ancient Shard")
+
+
+
+//Highlight for Clues
+CLUE_HIGHLIGHT("* (master)", CLUE_LIGHTBEAM_MASTER, CLUE_COLOR_MASTER)
+CLUE_HIGHLIGHT("* (elite)", CLUE_LIGHTBEAM_ELITE, CLUE_COLOR_ELITE)
+CLUE_HIGHLIGHT("* (hard)", CLUE_LIGHTBEAM_HARD, CLUE_COLOR_HARD)
+CLUE_HIGHLIGHT("* (medium)", CLUE_LIGHTBEAM_MEDIUM, CLUE_COLOR_MEDIUM)
+CLUE_HIGHLIGHT("* (easy)", CLUE_LIGHTBEAM_EASY, CLUE_COLOR_EASY)
+CLUE_HIGHLIGHT("* (beginner)", CLUE_LIGHTBEAM_BEGINNER, CLUE_COLOR_BEGINNER)
+
+//Highlight for Currency
+COIN_HIGHLIGHT_W_LOOTBEAM
+COIN_HIGHLIGHT
+
+//Highlight for Potions
+//https://oldschool.runescape.wiki/w/Potions
+GENERAL_HIGHLIGHT("Saradomin brew*", "FFCCCB63", POTION_VALUE_OVERRIDE)
+
+GENERAL_HIGHLIGHT("Prayer potion*", "FF59D4A8", POTION_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("Super restore*", "FFB74272", POTION_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("Prayer regeneration potion*", "FF87564C", POTION_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("Sanfew serum*", "FFB97571", POTION_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("Menaphite remedy*", "FF1C7FDB", POTION_VALUE_OVERRIDE)
+
+//GENERAL_HIGHLIGHT("Super attack*", "FF595CD4", POTION_VALUE_OVERRIDE)
+//GENERAL_HIGHLIGHT("Divine super attack potion*", "FF595CD4", POTION_VALUE_OVERRIDE)
+//GENERAL_HIGHLIGHT("Super strength*", "FFD7D6D6", POTION_VALUE_OVERRIDE)
+//GENERAL_HIGHLIGHT("Divine super strength potion*", "FFD7D6D6", POTION_VALUE_OVERRIDE)
+//GENERAL_HIGHLIGHT("Super defence*", "FFD4B659", POTION_VALUE_OVERRIDE)
+//GENERAL_HIGHLIGHT("Divine super defence potion*", "FFD4B659", POTION_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("Super combat potion*", "FF1C700B", POTION_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("Divine super combat potion*", "FF1C700B", POTION_VALUE_OVERRIDE)
+
+GENERAL_HIGHLIGHT("Ranging potion*", "FF59B2D4", POTION_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("Divine ranging potion*", "FF59B2D4", POTION_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("Bastion potion*", "FFBD6316", POTION_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("Divine bastion potion*", "FFBD6316", POTION_VALUE_OVERRIDE)
+
+//GENERAL_HIGHLIGHT("Ancient brew*", "FFA974CE", POTION_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("Forgotten brew*", "FF5A4669", POTION_VALUE_OVERRIDE)
+
+//GENERAL_HIGHLIGHT("Superantipoison*", "FFDB347D", POTION_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("Antidote++*", "FF81853D", POTION_VALUE_OVERRIDE)
+//GENERAL_HIGHLIGHT("Antidote+*", "FF807F65", POTION_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("Anti-venom+*", "FF5E4B51", POTION_VALUE_OVERRIDE)
+//GENERAL_HIGHLIGHT("Anti-venom*", "FF3D4E46", POTION_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("Extended anti-venom+*", "FF66967B", POTION_VALUE_OVERRIDE)
+
+//GENERAL_HIGHLIGHT("Antifire potion*", "FF79129D", POTION_VALUE_OVERRIDE)
+//GENERAL_HIGHLIGHT("Extended antifire*", "FF723FD2", POTION_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("Super antifire potion*", "FF8F62AE", POTION_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("Extended super antifire*", "FFB393CB", POTION_VALUE_OVERRIDE)
+
+GENERAL_HIGHLIGHT("Super energy*", "FFC15FA0", POTION_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("Stamina potion*", "FF9F7B4A", POTION_VALUE_OVERRIDE)
+
+GENERAL_HIGHLIGHT("Goading potion*", "FFAC2315", POTION_VALUE_OVERRIDE)
+
+//Highlight for Herbs
+//https://oldschool.runescape.wiki/w/Herb
+//GENERAL_HIGHLIGHT("*Guam Leaf", HERB_COLOR, HERB_VALUE_OVERRIDE)
+//GENERAL_HIGHLIGHT("*Marrentill", HERB_COLOR, HERB_VALUE_OVERRIDE)
+//GENERAL_HIGHLIGHT("*Tarromin", HERB_COLOR, HERB_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Harralander", HERB_COLOR, HERB_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Ranarr weed", HERB_COLOR, HERB_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Toadflax", HERB_COLOR, HERB_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Irit leaf", HERB_COLOR, HERB_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Avantoe", HERB_COLOR, HERB_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Kwuarm", HERB_COLOR, HERB_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Huasca", HERB_COLOR, HERB_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Snapdragon", HERB_COLOR, HERB_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Cadantine", HERB_COLOR, HERB_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Lantadyme", HERB_COLOR, HERB_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Dwarf weed", HERB_COLOR, HERB_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Torstol", HERB_COLOR, HERB_VALUE_OVERRIDE)
+
+//Highlight for Gems
+//https://oldschool.runescape.wiki/w/Gems
+GENERAL_HIGHLIGHT("*Sapphire", "FF121591", GENERAL_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Emerald", "FF0F8913", GENERAL_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Ruby", "FF79190C", GENERAL_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Diamond", "FFB4B4B4", GENERAL_VALUE_OVERRIDE)
+
+GENERAL_HIGHLIGHT("*Dragonstone", "FF640F82", GENERAL_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Onyx", "FF13132A", GENERAL_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Zenyte", "FFB16C15", GENERAL_VALUE_OVERRIDE)
+
+GENERAL_HIGHLIGHT("*Opal", "FFA0A090", GENERAL_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Jade", "FF96A090", GENERAL_VALUE_OVERRIDE)
+GENERAL_HIGHLIGHT("*Red topaz", "FFB1156C", GENERAL_VALUE_OVERRIDE)
+
+//Highlight for Ores and Bars
+//GENERAL_HIGHLIGHT("Adamantite ore", "", GENERAL_VALUE_OVERRIDE)
+//GENERAL_HIGHLIGHT("Adamantite bar", "", GENERAL_VALUE_OVERRIDE)
+
+//Highlight for Runes
+//https://oldschool.runescape.wiki/w/Runes
+GENERAL_HIGHLIGHT("* rune", RUNE_COLOR, GENERAL_VALUE_OVERRIDE)
+
+//Catch-all for untradeables
+if (tradeable:false) {
+	textColor = "FFFFFFFF";
+	showValue = false;
+}
+
+//Hide stuff
+//this does hide noted dragon bones though, needs resolved
+HIDE("*bones")
+HIDE("*ashes")
+
+//Highlight Based on Value
+VALUE_HIGHLIGHT(VALUE_S, VALUE_S_COLOR, VALUE_S_LOOTBEAM)
+VALUE_HIGHLIGHT(VALUE_A, VALUE_A_COLOR, VALUE_A_LOOTBEAM)
+VALUE_HIGHLIGHT(VALUE_B, VALUE_B_COLOR, VALUE_B_LOOTBEAM)
+VALUE_HIGHLIGHT(VALUE_C, VALUE_C_COLOR, VALUE_C_LOOTBEAM)
+VALUE_HIGHLIGHT(VALUE_D, VALUE_D_COLOR, VALUE_D_LOOTBEAM)
+VALUE_HIGHLIGHT(VALUE_E, VALUE_E_COLOR, VALUE_E_LOOTBEAM)
+VALUE_HIGHLIGHT(VALUE_F, VALUE_F_COLOR, VALUE_F_LOOTBEAM)
+
+//Force highlight for very low value
+GENERAL_HIGHLIGHT("Limpwurt root", VALUE_F_COLOR, VALUE_F)
+GENERAL_HIGHLIGHT("Unicorn horn", VALUE_F_COLOR, VALUE_F)
+GENERAL_HIGHLIGHT("Wine of zamorak", VALUE_F_COLOR, VALUE_F)
